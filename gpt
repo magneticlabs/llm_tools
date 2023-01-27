@@ -45,6 +45,6 @@ except Exception as e:
     print(f"OpenAI API error: {e}", file=sys.stderr)
     sys.exit(1)
 
-print(format(response.choices[0].text.strip()))
+print(response.choices[0].text.strip())
 
 sys.exit(0)
