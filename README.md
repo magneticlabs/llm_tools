@@ -24,19 +24,19 @@ export OPENAI_API_KEY=<key>
 # Examples
 
 ```
-$ cat examples/cars.csv| ./gpt "show me japanese cars only"
+$ cat examples/cars.csv| ./gpt -o "show me japanese cars only"
 
 honda,civic,2000,1000
 ```
 ```
-$ cat examples/cars.csv| gpt "show sql statement to group by brand and sum price"
+$ cat examples/cars.csv| gpt -o "show sql statement to group by brand and sum price"
 
 SELECT brand, SUM(price)
 FROM table
 GROUP BY brand;
 ```
 ```
-$ cat examples/notes.md| gpt 'from the following meeting notes, summarize action items for each meeting'
+$ cat examples/notes.md| gpt -o "from the following meeting notes, summarize action items for each meeting"
 
 Action Items for Meeting 1:
 - Move forward with proof of concept for GPT3.
@@ -52,7 +52,7 @@ Action Items for Meeting 3:
 ```
 
 ```
-$ cat examples/notes.md| ./gpt 'from the following meeting notes, summarize each meeting by date and display the sentiment of the meeting'
+$ cat examples/notes.md| ./gpt -o "from the following meeting notes, summarize each meeting by date and display the sentiment of the meeting"
 Meeting 1 (December 5th): Positive sentiment - decided to move forward with proof of concept.
 
 Meeting 2 (March 10th): Neutral sentiment - discussed concerns about accuracy of new prototype and plans to rework the app.

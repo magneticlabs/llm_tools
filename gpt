@@ -4,18 +4,47 @@ import sys
 import requests
 import os
 import openai
+import argparse
+import jinja2
 
-# Get the query string from the command line argument
-query_string = sys.argv[1]
-stdin_string = sys.stdin.read()
-
-template = "perform operation '{}' on the following input:\n{}".format(
-    query_string, stdin_string)
+default_template = """
+perform operation '{{operation}}' on the following input:\n{{stdin}}
+"""
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-response = openai.Completion.create(model="text-davinci-003",
-                                    prompt=template,
-                                    temperature=0,
-                                    max_tokens=2000)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-o",
+                    "--operation",
+                    help="Operation to perform on input",
+                    required=True)
+parser.add_argument("-t",
+                    "--temp",
+                    help="Temperature to pass to the completions api",
+                    default=0)
+parser.add_argument(
+    "-m",
+    "--max_tokens",
+    help="Maximum number of tokens passed to the completions api",
+    default=2000)
+args = parser.parse_args()
+
+# read piped content from stdin
+stdin_string = sys.stdin.read()
+
+environment = jinja2.Environment()
+template = environment.from_string(default_template)
+prompt = template.render(operation=args.operation, stdin=stdin_string)
+
+try:
+    response = openai.Completion.create(model="text-davinci-003",
+                                        prompt=prompt,
+                                        temperature=args.temp,
+                                        max_tokens=args.max_tokens)
+except Exception as e:
+    print(f"OpenAI API error: {e}", file=sys.stderr)
+    sys.exit(1)
 
 print(format(response.choices[0].text.strip()))
+
+sys.exit(0)
