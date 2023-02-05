@@ -67,4 +67,5 @@ gave guidance.
 ## gpt
 ```
 $ echo "write me a short summary about robots" | gpt
+Robots are machines that are programmed to perform specific tasks autonomously or with minimal human intervention. They are used in a variety of industries, from manufacturing to healthcare, and are becoming increasingly sophisticated. Robots can be programmed to perform complex tasks, such as welding, painting, and assembling products, as well as more mundane tasks, such as vacuuming and mowing lawns. They are also used in research and exploration, and are becoming increasingly important in the field of artificial intelligence.
 ```
