@@ -8,12 +8,12 @@ decided to move forward with proof of concept
 ## meeting 2
 
 attendees: bob, mick
-date: march 10th
+date: march 10th 2023
 
 concerns about accuracy of new prototype
 thinking of reworking the app
-bob to provide guidance
-mick to mock up new prototype
+bob to provide guidance by next week
+mick to mock up new prototype due tomorrow
 
 ## meeting 3
 
