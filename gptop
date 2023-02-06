@@ -18,6 +18,13 @@ parser.add_argument("-o",
                     "--operation",
                     help="Operation to perform on input",
                     required=True)
+parser.add_argument(
+    "-a",
+    "--append",
+    help="Append results of completion to stdin and include as output",
+    required=False,
+    default=0)
+
 parser.add_argument("-t",
                     "--temp",
                     help="Temperature to pass to the completions api",
@@ -45,6 +52,9 @@ except Exception as e:
     print(f"OpenAI API error: {e}", file=sys.stderr)
     sys.exit(1)
 
-print(response.choices[0].text.strip())
+if args.append:
+    print("{}\n{}".format(stdin_string, response.choices[0].text.strip()))
+else:
+    print(response.choices[0].text.strip())
 
 sys.exit(0)
