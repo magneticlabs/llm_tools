@@ -14,6 +14,13 @@ parser.add_argument("-t",
                     help="Temperature to pass to the completions api",
                     default=0)
 parser.add_argument(
+    "-a",
+    "--append",
+    help="Append results of completion to stdin and include as output",
+    required=False,
+    default=0)
+
+parser.add_argument(
     "-m",
     "--max_tokens",
     help="Maximum number of tokens passed to the completions api",
@@ -32,6 +39,9 @@ except Exception as e:
     print(f"OpenAI API error: {e}", file=sys.stderr)
     sys.exit(1)
 
-print(response.choices[0].text.strip())
+if args.append:
+    print("{}\n{}".format(prompt, response.choices[0].text.strip()))
+else:
+    print(response.choices[0].text.strip())
 
 sys.exit(0)
